@@ -2,7 +2,7 @@
 
 void imprimirVetor(int vetor[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
-        printf("%d ", vetor[i]);
+        printf("%d|", vetor[i]);
     }
     printf("\n");
 }
@@ -50,19 +50,14 @@ void heapSort(int vetor[], int tamanho) {
         // Chama o heapify na árvore reduzida (ignorando o que já foi pro fim)
         heapify(vetor, i, 0);
     }
+    imprimirVetor(vetor, tamanho);
 }
 
 int main() {
-    int Vetor[] = {38, 27, 43, 3, 9, 82, 10, 15, 22, 5};
+    int vetor[] = {50, 70, 30, 40, 20, 80, 5, 60, 90, 10};
     int tamanho = sizeof(vetor)/sizeof(vetor[0]);
 
-    printf("Vetor Original: ");
-    imprimirVetor(Vetor, tamanho);
-
-    heapSort(Vetor, tamanho);
-
-    printf("Vetor Ordenado: ");
-    imprimirVetor(Vetor, tamanho);
+    heapSort(vetor, tamanho);
 
     return 0;
 }
