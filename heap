@@ -1,63 +1,44 @@
 #include <stdio.h>
 
-void imprimirVetor(int vetor[], int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
+void imprimirVetor(int vetor[], int tamanho){
+    for(int i = 0; i<tamanho; i++){
         printf("%d|", vetor[i]);
     }
-    printf("\n");
 }
 
-// Função para organizar uma subárvore (o "coração" do Heap Sort)
-void heapify(int vetor[], int tamanho, int i) {
-    int maior = i;          // Inicializa o maior como a raiz
-    int esquerda = 2 * i + 1;  // Índice do filho da esquerda
-    int direita = 2 * i + 2;   // Índice do filho da direita
-
-    // Se o filho da esquerda for maior que a raiz
-    if (esquerda < tamanho && vetor[esquerda] > vetor[maior])
+void heapify(int vetor[], int tamanho, int raiz){
+    int maior = raiz;
+    int esquerda = 2*raiz+1;
+    int direita = 2*raiz+2;
+    if(esquerda<tamanho && vetor[esquerda]>vetor[maior]){
         maior = esquerda;
-
-    // Se o filho da direita for maior que o maior até agora
-    if (direita < tamanho && vetor[direita] > vetor[maior])
+    }
+    if(direita<tamanho && vetor[direita]>vetor[maior]){
         maior = direita;
-
-    // Se o maior não for a raiz, fazemos uma troca e continuamos organizando
-    if (maior != i) {
-        int aux = vetor[i];
-        vetor[i] = vetor[maior];
+    }
+    if(maior != raiz){
+        int aux = vetor[raiz];
+        vetor[raiz] = vetor[maior];
         vetor[maior] = aux;
-
-        // Organiza recursivamente a subárvore afetada
         heapify(vetor, tamanho, maior);
     }
 }
 
-void heapSort(int vetor[], int tamanho) {
-
-    //Constroi o Heap (reorganiza o vetor)
-    // Começamos do último nó que possui filhos
-    for (int i = tamanho / 2 - 1; i >= 0; i--)
+void heapSort(int vetor[], int tamanho){
+    for(int i = tamanho/2-1; i>=0; i--){
         heapify(vetor, tamanho, i);
-
-    //Extrai um por um os elementos do heap
-    for (int i = tamanho - 1; i > 0; i--) {
-
-        // Move a raiz atual (o maior de todos) para o fim do vetor
+    }
+    for(int i = tamanho-1; i>0; i--){
         int aux = vetor[0];
         vetor[0] = vetor[i];
         vetor[i] = aux;
-
-        // Chama o heapify na árvore reduzida (ignorando o que já foi pro fim)
         heapify(vetor, i, 0);
     }
     imprimirVetor(vetor, tamanho);
 }
 
-int main() {
+int main(){
     int vetor[] = {50, 70, 30, 40, 20, 80, 5, 60, 90, 10};
     int tamanho = sizeof(vetor)/sizeof(vetor[0]);
-
     heapSort(vetor, tamanho);
-
-    return 0;
 }
